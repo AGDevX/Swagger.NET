@@ -1,6 +1,6 @@
 # AGDevX Swagger .NET
 
-AGDevX Swagger is a wrapper that makes configuring Swagger for .NET Core Web APIs simpler.
+AGDevX Swagger .NET is a wrapper that makes configuring Swagger for .NET Core Web APIs simpler.
 
 # Features
 
