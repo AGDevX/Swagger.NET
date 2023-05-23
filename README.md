@@ -60,7 +60,7 @@ services.AddSwaggerToApi(swaggerConfig);
 
 ## Adding the Middleware
 
-All that is needed here is to call `UseSwaggerForApi`.
+All that is needed here is to call the `UseSwaggerForApi` extension method on the `WebApplication` object.
 
 ```
  webApi.UseSwaggerForApi();
