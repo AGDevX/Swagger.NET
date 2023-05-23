@@ -19,6 +19,10 @@
 		<PackageReleaseNotes>Initial release</PackageReleaseNotes>
 		<AssemblyVersion>0.0.0.1</AssemblyVersion>
 		<FileVersion>0.0.0.1</FileVersion>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>symbols.nupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	
 	<ItemGroup>
