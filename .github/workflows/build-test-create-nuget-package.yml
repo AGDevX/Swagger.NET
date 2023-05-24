@@ -1,0 +1,52 @@
+# Build a .NET Core solution, run unit tests, and create a NuGet package
+
+name: Build, Test, Create NuGet Package
+
+on:
+  pull_request:
+  #push:
+  #  tags:
+  #    - 'v*'
+
+env:
+  SOLUTION_PATH: 'AGDevX.Web.Swagger.sln'
+  CONFIGURATION: 'Release'
+  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
+  NUGET_API_URL: https://api.nuget.org/v3/index.json
+
+jobs:
+  build-test-create-nuget-package:
+    name: Run Unit Tests
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+
+      - name: Build
+        run: dotnet build ${{ env.SOLUTION_PATH }} --configuration ${{ env.CONFIGURATION }} --no-restore
+
+      - name: Run Unit Tests
+        run: dotnet test --no-build --verbosity normal
+
+      #- name: Get version
+      #  id: version
+      #  uses: batilla7/get-version-action@v2
+      - name: Pack
+        run: dotnet pack ${{ env.SOLUTION_PATH }} --configuration ${{ env.CONFIGURATION }} --include-symbols --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }} --no-restore --no-build
+        #run: dotnet pack ${{ env.SOLUTION_PATH }} --configuration ${{ env.CONFIGURATION }} -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }} --no-restore --no-build --include-symbols
+
+      #- name: Push to NuGet.org
+      #  run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -s ${{ env.NUGET_API_URL }} -k ${{ secrets.NUGET_API_KEY }}
