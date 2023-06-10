@@ -14,10 +14,10 @@ public static class SwaggerExtensions
 {
     public static void AddSwaggerToApi(this IServiceCollection services, SwaggerConfig swaggerConfig)
     {
+        services.AddSingleton(swaggerConfig);
+
         if (swaggerConfig.Enabled)
         {
-            services.AddSingleton(swaggerConfig);
-
             var isApiVersioningAlreadyAdded = services.Any(s => s.ServiceType == typeof(IApiVersionReader));
 
             if (!isApiVersioningAlreadyAdded)

@@ -78,7 +78,7 @@ public class SwaggerExtensionsTestsTests : TestBase
             services.AddSwaggerToApi(swaggerConfig);
 
             //-- Assert
-            Assert.DoesNotContain(typeof(SwaggerConfig), services.Select(s => s.ServiceType));
+            Assert.Contains(typeof(SwaggerConfig), services.Select(s => s.ServiceType));
             Assert.DoesNotContain(typeof(IApiVersionReader), services.Select(s => s.ServiceType));
             Assert.DoesNotContain(typeof(DefaultApiVersionDescriptionProvider), services.Select(s => s.ImplementationType));
             Assert.DoesNotContain(typeof(ConfigureDefault), services.Select(s => s.ImplementationType));
